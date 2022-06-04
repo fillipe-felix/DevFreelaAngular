@@ -1,6 +1,7 @@
 // @ts-nocheck
 
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-register',
@@ -31,16 +32,12 @@ export class RegisterComponent implements OnInit {
 
   cadastrar() {
     // Checa se alguma role foi checada.
-
-
     if (this.checkIfAnyRoleIsChecked() === false) {
-
-      alert("Marque uma role")
-      // Swal.fire(
-      //   'Algo de errado...',
-      //   'Marque alguma role!',
-      //   'error'
-      // )
+      Swal.fire(
+        'Algo de errado...',
+        'Marque alguma role!',
+        'error'
+      )
       return;
     }
 
@@ -63,29 +60,20 @@ export class RegisterComponent implements OnInit {
     })
       .then(response => response.json())
       .then(response => {
+        Swal.fire({
+          title: 'Bom Trabalho!',
+          text: "Cadastrado com sucesso!",
+          icon: 'success',
+          confirmButtonText: 'Ok!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            localStorage.setItem("userName", response.fullName);
+            localStorage.setItem("role", response.role === "dev" ? "Desenvolvedor" : "Cliente");
+            localStorage.setItem("idClient", response.id);
 
-        alert("Cadastrado com sucesso")
-
-        localStorage.setItem("userName", response.fullName);
-        localStorage.setItem("role", response.role === "dev" ? "Desenvolvedor" : "Cliente");
-        localStorage.setItem("idClient", response.id);
-
-        window.location.href = "list.html";
-
-        // Swal.fire({
-        //   title: 'Bom Trabalho!',
-        //   text: "Cadastrado com sucesso!",
-        //   icon: 'success',
-        //   confirmButtonText: 'Ok!'
-        // }).then((result) => {
-        //   if (result.isConfirmed) {
-        //     localStorage.setItem("userName", response.fullName);
-        //     localStorage.setItem("role", response.role === "dev" ? "Desenvolvedor" : "Cliente");
-        //     localStorage.setItem("idClient", response.id);
-        //
-        //     window.location.href = "list.html";
-        //   }
-        // })
+            window.location.href = "list.html";
+          }
+        })
       })
   }
 

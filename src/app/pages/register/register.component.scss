@@ -30,20 +30,20 @@
           color: var(--ld-color-gray);
           margin-bottom: 13px;
         }
-      }
 
-      >.radio-buttons {
-        margin-bottom: 42px;
+        >.radio-buttons {
+          margin-bottom: 42px;
 
-        >.title {
-          font-size: calc(var(--ld-font-size-base) + 8px);
-          font-weight: 800;
-          margin-bottom: 16px;
-        }
+          >.title {
+            font-size: calc(var(--ld-font-size-base) + 8px);
+            font-weight: 800;
+            margin-bottom: 16px;
+          }
 
-        >.buttons{
-          >.ld-radio {
-            margin-right: 70px;
+          >.buttons{
+            >.ld-radio {
+              margin-right: 70px;
+            }
           }
         }
       }
