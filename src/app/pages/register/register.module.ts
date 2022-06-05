@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { RegisterRoutingModule } from './register-routing.module';
 import { RegisterComponent } from './register.component';
-import {LdHeaderModule} from "../../features/ld-header/ld-header.module";
 import {LdButtonModule} from "../../shared/components/ld-button/ld-button.module";
+import {LdWrapperModule} from "../../features/ld-wrapper/ld-wrapper.module";
 
 
 @NgModule({
@@ -14,8 +14,8 @@ import {LdButtonModule} from "../../shared/components/ld-button/ld-button.module
   imports: [
     CommonModule,
     RegisterRoutingModule,
-    LdHeaderModule,
-    LdButtonModule
+    LdButtonModule,
+    LdWrapperModule
   ]
 })
 export class RegisterModule { }

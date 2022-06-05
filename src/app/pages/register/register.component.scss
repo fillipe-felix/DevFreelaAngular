@@ -1,52 +1,47 @@
-.ld-login{
+.ld-register {
 
-  >.ld-wrapper{
+  .left {
+    max-width: 450px;
+    margin: auto;
 
-    >.main-content{
+    > .main-title {
+      font-weight: 800;
+      margin-bottom: 40px;
 
-      >.left {
-        max-width: 450px;
-        margin: auto;
+      > .up {
+        font-size: calc(var(--ld-font-size-base) + 38px);
+        display: block;
+        margin-bottom: 7px;
+      }
 
-        >.main-title {
-          font-weight: 800;
-          margin-bottom: 40px;
+      > .down {
+        font-size: calc(var(--ld-font-size-base) + 22px);
+      }
+    }
 
-          >.up {
-            font-size: calc(var(--ld-font-size-base) + 38px);
-            display: block;
-            margin-bottom: 7px;
-          }
+    > .steps {
+      display: block;
+      font-weight: 800;
+      font-size: calc(var(--ld-font-size-base) + 4px);
+      color: var(--ld-color-gray);
+      margin-bottom: 13px;
+    }
 
-          >.down {
-            font-size: calc(var(--ld-font-size-base) + 22px);
-          }
-        }
+    > .radio-buttons {
+      margin-bottom: 42px;
 
-        >.steps {
-          display: block;
-          font-weight: 800;
-          font-size: calc(var(--ld-font-size-base) + 4px);
-          color: var(--ld-color-gray);
-          margin-bottom: 13px;
-        }
+      > .title {
+        font-size: calc(var(--ld-font-size-base) + 8px);
+        font-weight: 800;
+        margin-bottom: 16px;
+      }
 
-        >.radio-buttons {
-          margin-bottom: 42px;
-
-          >.title {
-            font-size: calc(var(--ld-font-size-base) + 8px);
-            font-weight: 800;
-            margin-bottom: 16px;
-          }
-
-          >.buttons{
-            >.ld-radio {
-              margin-right: 70px;
-            }
-          }
+      > .buttons {
+        > .ld-radio {
+          margin-right: 70px;
         }
       }
     }
   }
 }
+
