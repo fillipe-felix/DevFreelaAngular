@@ -4,8 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2'
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {msg} from 'src/app/shared/Utils/msg'
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
+import {RegisterService} from "./services/register.service";
 
 @Component({
   selector: 'app-register',
@@ -14,7 +13,7 @@ import {environment} from "../../../environments/environment";
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private http: HttpClient) { }
+  constructor(private fb: FormBuilder, private registerService: RegisterService) { }
 
   msg = msg;
 
@@ -52,7 +51,7 @@ export class RegisterComponent implements OnInit {
       //paylod
       let payload = this.registerForm.value;
 
-      this.http.post(environment.apiUrl + "users", payload)
+      this.registerService.postUser(payload)
         .subscribe({
           next: response => {
             Swal.fire({
