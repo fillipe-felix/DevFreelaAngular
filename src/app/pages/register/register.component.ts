@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2'
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {msg} from 'src/app/shared/Utils/msg'
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-register',
@@ -12,7 +14,7 @@ import {msg} from 'src/app/shared/Utils/msg'
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private http: HttpClient) { }
 
   msg = msg;
 
@@ -48,58 +50,34 @@ export class RegisterComponent implements OnInit {
 
     if(this.registerForm.valid){
       //paylod
+      let payload = this.registerForm.value;
 
-      console.log(this.registerForm.value)
+      this.http.post(environment.apiUrl + "users", payload)
+        .subscribe({
+          next: response => {
+            Swal.fire({
+              title: 'Bom Trabalho!',
+              text: "Cadastrado com sucesso!",
+              icon: 'success',
+              confirmButtonText: 'Ok!'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                localStorage.setItem("userName", response.fullName);
+                localStorage.setItem("role", response.role === "dev" ? "Desenvolvedor" : "Cliente");
+                localStorage.setItem("idClient", response.id);
+
+                //window.location.href = "list.html";
+              }
+            })
+          },
+          error: err => {
+            console.log(error.status)
+          }
+        }
+        );
     }else{
       this.registerForm.markAllAsTouched();
     }
-
-
-
-    // Checa se alguma role foi checada.
-    // if (this.checkIfAnyRoleIsChecked() === false) {
-    //   Swal.fire(
-    //     'Algo de errado...',
-    //     'Marque alguma role!',
-    //     'error'
-    //   )
-    //   return;
-    // }
-    //
-    // // Inicia a massa de dados (payload)
-    // let payload = {
-    //   role: document.getElementsByName("role")[0].checked == true ? 'dev' : 'cliente',
-    //   fullName: document.querySelector("#fullName").value,
-    //   birthdate: document.querySelector("#birthdate").value,
-    //   email: document.querySelector("#email").value,
-    //   password: document.querySelector("#password").value
-    // }
-    //
-    // // Enviar para API
-    // fetch("https://622cd1e6087e0e041e147214.mockapi.io/api/users", {
-    //   method: 'POST',
-    //   body: JSON.stringify(payload),
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
-    //   .then(response => response.json())
-    //   .then(response => {
-    //     Swal.fire({
-    //       title: 'Bom Trabalho!',
-    //       text: "Cadastrado com sucesso!",
-    //       icon: 'success',
-    //       confirmButtonText: 'Ok!'
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         localStorage.setItem("userName", response.fullName);
-    //         localStorage.setItem("role", response.role === "dev" ? "Desenvolvedor" : "Cliente");
-    //         localStorage.setItem("idClient", response.id);
-    //
-    //         window.location.href = "list.html";
-    //       }
-    //     })
-    //   })
   }
 
   isInvalid(inputName: string, validatorName: string){
