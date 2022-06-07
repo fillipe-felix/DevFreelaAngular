@@ -3,6 +3,7 @@
 import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2'
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {msg} from 'src/app/shared/Utils/msg'
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class RegisterComponent implements OnInit {
 
   constructor(private fb: FormBuilder) { }
+
+  msg = msg;
 
   registerForm: FormGroup = this.fb.group({
     role:['', [Validators.required]],
@@ -37,51 +40,73 @@ export class RegisterComponent implements OnInit {
     return counter !== list.length;
   }
 
-  cadastrar() {
-    // Checa se alguma role foi checada.
-    if (this.checkIfAnyRoleIsChecked() === false) {
-      Swal.fire(
-        'Algo de errado...',
-        'Marque alguma role!',
-        'error'
-      )
-      return;
-    }
-
-    // Inicia a massa de dados (payload)
-    let payload = {
-      role: document.getElementsByName("role")[0].checked == true ? 'dev' : 'cliente',
-      fullName: document.querySelector("#fullName").value,
-      birthdate: document.querySelector("#birthdate").value,
-      email: document.querySelector("#email").value,
-      password: document.querySelector("#password").value
-    }
-
-    // Enviar para API
-    fetch("https://622cd1e6087e0e041e147214.mockapi.io/api/users", {
-      method: 'POST',
-      body: JSON.stringify(payload),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => response.json())
-      .then(response => {
-        Swal.fire({
-          title: 'Bom Trabalho!',
-          text: "Cadastrado com sucesso!",
-          icon: 'success',
-          confirmButtonText: 'Ok!'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            localStorage.setItem("userName", response.fullName);
-            localStorage.setItem("role", response.role === "dev" ? "Desenvolvedor" : "Cliente");
-            localStorage.setItem("idClient", response.id);
-
-            window.location.href = "list.html";
-          }
-        })
-      })
+  toogleRole(role: 'dev' | 'cliente') {
+    this.registerForm.get('role')?.setValue(role)
   }
 
+  cadastrar() {
+
+    if(this.registerForm.valid){
+      //paylod
+
+      console.log(this.registerForm.value)
+    }else{
+      this.registerForm.markAllAsTouched();
+    }
+
+
+
+    // Checa se alguma role foi checada.
+    // if (this.checkIfAnyRoleIsChecked() === false) {
+    //   Swal.fire(
+    //     'Algo de errado...',
+    //     'Marque alguma role!',
+    //     'error'
+    //   )
+    //   return;
+    // }
+    //
+    // // Inicia a massa de dados (payload)
+    // let payload = {
+    //   role: document.getElementsByName("role")[0].checked == true ? 'dev' : 'cliente',
+    //   fullName: document.querySelector("#fullName").value,
+    //   birthdate: document.querySelector("#birthdate").value,
+    //   email: document.querySelector("#email").value,
+    //   password: document.querySelector("#password").value
+    // }
+    //
+    // // Enviar para API
+    // fetch("https://622cd1e6087e0e041e147214.mockapi.io/api/users", {
+    //   method: 'POST',
+    //   body: JSON.stringify(payload),
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
+    //   .then(response => response.json())
+    //   .then(response => {
+    //     Swal.fire({
+    //       title: 'Bom Trabalho!',
+    //       text: "Cadastrado com sucesso!",
+    //       icon: 'success',
+    //       confirmButtonText: 'Ok!'
+    //     }).then((result) => {
+    //       if (result.isConfirmed) {
+    //         localStorage.setItem("userName", response.fullName);
+    //         localStorage.setItem("role", response.role === "dev" ? "Desenvolvedor" : "Cliente");
+    //         localStorage.setItem("idClient", response.id);
+    //
+    //         window.location.href = "list.html";
+    //       }
+    //     })
+    //   })
+  }
+
+  isInvalid(inputName: string, validatorName: string){
+    const formControl: any = this.registerForm.get(inputName);
+
+    if (formControl.errors !== null){
+      return formControl.errors[validatorName] && formControl.touched
+    }
+  }
 }

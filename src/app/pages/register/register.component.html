@@ -11,36 +11,42 @@
           <div class="buttons">
             <label class="ld-radio">
               Dev
-              <input name="role" type="radio">
+              <input name="role" type="radio" (click)="toogleRole('dev')">
               <span class="checkmark"></span>
             </label>
 
             <label class="ld-radio">
               Cliente
-              <input name="role" type="radio">
+              <input name="role" type="radio" (click)="toogleRole('cliente')">
               <span class="checkmark"></span>
             </label>
           </div>
+          <span class="role-invalid" *ngIf="isInvalid('role', 'required')">{{msg.role}}</span>
         </div>
 
         <mat-form-field appearance="legacy">
           <mat-label>Nome completo</mat-label>
           <input matInput formControlName="fullName">
+          <mat-error *ngIf="isInvalid('fullName', 'required')">{{msg.requerid}}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="legacy">
           <mat-label>Data de nascimento</mat-label>
           <input type="date" matInput formControlName="birthdate">
+          <mat-error *ngIf="isInvalid('birthdate', 'required')">{{msg.requerid}}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="legacy">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email">
+          <mat-error *ngIf="isInvalid('email', 'required')">{{msg.requerid}}</mat-error>
+          <mat-error *ngIf="isInvalid('email', 'email')">{{msg.email}}</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="legacy">
           <mat-label>Senha</mat-label>
           <input type="password" matInput formControlName="password">
+          <mat-error *ngIf="isInvalid('password', 'required')">{{msg.requerid}}</mat-error>
         </mat-form-field>
 
         <ld-button text="Continuar"></ld-button>
