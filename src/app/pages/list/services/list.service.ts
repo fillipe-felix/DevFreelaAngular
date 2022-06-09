@@ -11,6 +11,10 @@ export class ListService {
   constructor(private http: HttpClient) { }
 
   getProjects(){
-    return this.http.get<IListItem[]>(environment.apiUrl + '/projects')
+    return this.http.get<IListItem[]>(`${environment.apiUrl}/projects`)
+  }
+
+  deleteProject(id: string){
+    return this.http.delete(`${environment.apiUrl}/projects/${id}`)
   }
 }

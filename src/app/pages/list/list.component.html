@@ -8,7 +8,11 @@
     </div>
 
     <div class="table-wrapper">
-      <div class="ld-table">
+      <div class="loading" *ngIf="isLoadingTable === false">
+          Carregando tabela...
+      </div>
+
+      <div class="ld-table" *ngIf="isLoadingTable === true">
         <div class="head">
           <div class="row">
             <div>Título</div>
@@ -16,8 +20,18 @@
             <div>Ações</div>
           </div>
         </div>
-        <div class="body" id="table-body">
-
+        <div class="body">
+          <div class="row" *ngFor="let listItem of list">
+            <div class="title-description">
+              <h6 class="title">{{listItem.title}}</h6>
+              <p class="description">{{listItem.description}}</p>
+            </div>
+            <div class="price">R$ {{listItem.totalCost}}</div>
+            <div class="actions">
+              <span class="edit material-icons" (click)="goToEdit(listItem.id)">edit</span>
+              <span class="delete material-icons" (click)="deleteProject(listItem.id)">delete_outline</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
