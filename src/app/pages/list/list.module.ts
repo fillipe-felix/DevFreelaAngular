@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ListRoutingModule } from './list-routing.module';
 import { ListComponent } from './list.component';
 import {LdWrapperModule} from "../../features/ld-wrapper/ld-wrapper.module";
+import {LdButtonModule} from "../../shared/components/ld-button/ld-button.module";
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {LdWrapperModule} from "../../features/ld-wrapper/ld-wrapper.module";
   imports: [
     CommonModule,
     ListRoutingModule,
-    LdWrapperModule
+    LdWrapperModule,
+    LdButtonModule
   ]
 })
 export class ListModule { }

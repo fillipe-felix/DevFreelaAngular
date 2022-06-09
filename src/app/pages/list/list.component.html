@@ -3,7 +3,7 @@
     <div class="title-button">
       <h1 class="title">Projetos</h1>
       <div class="button-wrapper">
-        <a href="project-create-edit.html" class="ld-button -small">Novo Projeto</a>
+        <ld-button text="Novo Projeto"></ld-button>
       </div>
     </div>
 
@@ -26,7 +26,7 @@
               <h6 class="title">{{listItem.title}}</h6>
               <p class="description">{{listItem.description}}</p>
             </div>
-            <div class="price">R$ {{listItem.totalCost}}</div>
+            <div class="price">{{listItem.totalCost | currency }}</div>
             <div class="actions">
               <span class="edit material-icons" (click)="goToEdit(listItem.id)">edit</span>
               <span class="delete material-icons" (click)="deleteProject(listItem.id)">delete_outline</span>
