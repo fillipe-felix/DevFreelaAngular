@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'ld-wrapper',
@@ -11,5 +11,7 @@ export class LdWrapperComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  @Input() type: 'one-col' | 'two-col' = 'two-col'
 
 }

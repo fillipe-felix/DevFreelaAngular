@@ -1,7 +1,7 @@
 <div class="ld-wrapper">
   <ld-header></ld-header>
 
-  <main class="main-content">
+  <main class="main-content" [class.-one-col]="type === 'one-col'">
     <ng-content></ng-content>
   </main>
 </div>
