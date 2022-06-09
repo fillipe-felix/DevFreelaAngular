@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { Component, OnInit } from '@angular/core';
 import {IListItem} from "./interfaces/IListItem";
+import {ListService} from "./services/list.service";
 
 @Component({
   selector: 'app-list',
@@ -9,7 +10,7 @@ import {IListItem} from "./interfaces/IListItem";
 })
 export class ListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private listService: ListService) { }
 
   list: IListItem[] = [];
 
@@ -19,12 +20,13 @@ export class ListComponent implements OnInit {
   }
 
   getProjects() {
-    fetch("https://622cd1e6087e0e041e147214.mockapi.io/api/projects")
-      .then(response => response.json())
-      .then((response: IListItem[]) => {
-        this.list = response;
-        this.buildTable();
-      })
+    this.listService.getProjects()
+      .subscribe(
+        (response: IListItem[]) => {
+          this.list = response;
+          this.buildTable();
+        }
+      );
   }
 
   goToEdit(id) {
@@ -63,8 +65,6 @@ export class ListComponent implements OnInit {
                 </div>
             </div>
         `
-
-
       document.querySelector("#table-body").insertAdjacentHTML("beforeend", template)
     });
   }

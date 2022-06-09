@@ -11,6 +11,6 @@ export class RegisterService {
   constructor(private http: HttpClient) { }
 
   postUser(payload: IUser){
-    return this.http.post(environment.apiUrl + "users", payload)
+    return this.http.post(environment.apiUrl + "/users", payload)
   }
 }
