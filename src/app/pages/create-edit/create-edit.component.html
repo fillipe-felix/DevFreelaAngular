@@ -1,3 +1,22 @@
 <div class="project-create-edit">
-  <ld-wrapper> Conteudo do project</ld-wrapper>
+  <ld-wrapper backToPage="list">
+<!--    <a class="back-btn material-icons" href="list.html">-->
+<!--      keyboard_arrow_left-->
+<!--    </a>-->
+
+    <form class="left" onsubmit="createOrEdit()" action="javascript:void(0)">
+
+      <h1 class="main-title" id="main-title"></h1>
+
+      <input required id="title" class="ld-input" placeholder="Título">
+      <input required id="totalCost" class="ld-input" placeholder="Custo Total">
+      <textarea required id="description" class="ld-input" placeholder="Descrição"></textarea>
+
+      <ld-button text="Salvar"></ld-button>
+    </form>
+    <div class="right">
+      <img class="image" alt="Fundo de decoração com 3 cubos com fundo gradient das cores do arco-iris"
+           src="assets/image/bg-float-cubes.png">
+    </div>
+  </ld-wrapper>
 </div>
