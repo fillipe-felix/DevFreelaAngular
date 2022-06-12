@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-edit',
@@ -7,13 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateEditComponent implements OnInit {
 
-  urlSearchParams: any = new URLSearchParams(window.location.search);
-  params: any = Object.fromEntries(this.urlSearchParams.entries());
+  id:string;
+  screenType: 'create' | 'edit';
 
-  // Type: 'create' | 'edit'
-  screenType = this.params.id ? 'edit' : 'create';
-
-  constructor() { }
+  constructor(private router: Router) {
+    this.id = history.state.id
+    this.screenType = this.id ? 'edit' : 'create'
+  }
 
   ngOnInit(): void {
     this.setScreenTypeTexts();
@@ -30,7 +31,7 @@ export class CreateEditComponent implements OnInit {
     }
 
     // Enviar para API
-    fetch(`https://622cd1e6087e0e041e147214.mockapi.io/api/projects${this.screenType === 'edit' ? ('/' + this.params.id) : ''}`, {
+    fetch(`https://622cd1e6087e0e041e147214.mockapi.io/api/projects${this.screenType === 'edit' ? ('/' + this.id) : ''}`, {
       method: this.screenType === 'edit' ? 'PUT' : 'POST',
       body: JSON.stringify(payload),
       headers: {
@@ -45,13 +46,13 @@ export class CreateEditComponent implements OnInit {
           alert('Cadastrado com sucesso!');
         }
 
-        window.location.href = "list.html";
+        this.router.navigateByUrl('list')
       })
   }
 
   fillInputs() {
     if (this.screenType === 'edit') {
-      fetch(`https://622cd1e6087e0e041e147214.mockapi.io/api/projects/${this.params.id}`)
+      fetch(`https://622cd1e6087e0e041e147214.mockapi.io/api/projects/${this.id}`)
         .then(response => response.json())
         .then(project => {
           (document.querySelector("#title") as any).value = project.title;

@@ -5,6 +5,7 @@ import Swal from 'sweetalert2'
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {msg} from 'src/app/shared/Utils/msg'
 import {RegisterService} from "./services/register.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,8 @@ import {RegisterService} from "./services/register.service";
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private fb: FormBuilder, private registerService: RegisterService) { }
+  constructor(private fb: FormBuilder, private registerService: RegisterService,
+              private router: Router) { }
 
   msg = msg;
 
@@ -65,7 +67,7 @@ export class RegisterComponent implements OnInit {
                 localStorage.setItem("role", response.role === "dev" ? "Desenvolvedor" : "Cliente");
                 localStorage.setItem("idClient", response.id);
 
-                //window.location.href = "list.html";
+                this.router.navigateByUrl('list')
               }
             })
           },

@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'ld-wrapper',
@@ -7,11 +8,15 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class LdWrapperComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  @Input() type: 'one-col' | 'two-col' = 'two-col'
+  @Input() type: 'one-col' | 'two-col' = 'two-col';
+  @Input() back: string = '';
 
+  redirectTo(url: string) {
+    this.router.navigateByUrl(url);
+  }
 }
