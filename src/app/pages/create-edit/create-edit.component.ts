@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {CreateEditService} from "./services/create-edit.service";
+import {IProject} from "../../shared/interfaces/IProject";
 
 @Component({
   selector: 'app-create-edit',
@@ -10,8 +12,9 @@ export class CreateEditComponent implements OnInit {
 
   id:string;
   screenType: 'create' | 'edit';
+  typeButton: string = 'Cadastrar';
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private projectCreateEditService: CreateEditService) {
     this.id = history.state.id
     this.screenType = this.id ? 'edit' : 'create'
   }
@@ -23,31 +26,34 @@ export class CreateEditComponent implements OnInit {
 
   createOrEdit() {
     // Inicia a massa de dados (payload)
-    let payload = {
+    let payload: IProject = {
       title: (document.querySelector("#title") as any).value,
       totalCost: (document.querySelector("#totalCost") as any).value,
       description: (document.querySelector("#description") as any).value,
       idClient: localStorage.getItem("idClient")
     }
 
-    // Enviar para API
-    fetch(`https://622cd1e6087e0e041e147214.mockapi.io/api/projects${this.screenType === 'edit' ? ('/' + this.id) : ''}`, {
-      method: this.screenType === 'edit' ? 'PUT' : 'POST',
-      body: JSON.stringify(payload),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-      .then(response => response.json())
-      .then(response => {
-        if (this.screenType === 'edit') {
-          alert('Editado com sucesso!');
-        } else {
-          alert('Cadastrado com sucesso!');
-        }
+    console.log(payload)
 
-        this.router.navigateByUrl('list')
-      })
+    if (this.screenType === 'create'){
+      this.projectCreateEditService.postProject(payload)
+        .subscribe(
+          (response: IProject) => {
+            alert('Cadastrado com sucesso!');
+            this.router.navigateByUrl('list')
+          }
+        )
+    }
+
+    if (this.screenType === 'edit'){
+      this.projectCreateEditService.putProject(payload, this.id)
+        .subscribe(
+          (response: IProject) => {
+            alert('Editado com sucesso!');
+            this.router.navigateByUrl('list')
+          }
+        )
+    }
   }
 
   fillInputs() {
@@ -66,13 +72,14 @@ export class CreateEditComponent implements OnInit {
     // MODO CRIAR
     if (this.screenType == 'create') {
       (document.querySelector('#main-title') as any).innerText = "Vamos cadastrar seu novo projeto!";
-      (document.querySelector('#action-button') as any).innerText = "Cadastrar";
+      //(document.querySelector('#action-button') as any).innerText = "Cadastrar";
     }
 
     // MODO EDITAR
     if (this.screenType == 'edit') {
       (document.querySelector('#main-title') as any).innerText = "Editar projeto";
-      (document.querySelector('#action-button') as any).innerText = "Salvar";
+      //(document.querySelector('#action-button') as any).innerText = "Salvar";
+      this.typeButton = 'Salvar'
     }
   }
 }
