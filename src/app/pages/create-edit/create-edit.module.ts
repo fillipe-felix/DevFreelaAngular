@@ -5,6 +5,9 @@ import { CreateEditRoutingModule } from './create-edit-routing.module';
 import { CreateEditComponent } from './create-edit.component';
 import {LdWrapperModule} from "../../features/ld-wrapper/ld-wrapper.module";
 import {LdButtonModule} from "../../shared/components/ld-button/ld-button.module";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatInputModule} from "@angular/material/input";
+import {MatFormFieldModule} from "@angular/material/form-field";
 
 
 @NgModule({
@@ -15,7 +18,10 @@ import {LdButtonModule} from "../../shared/components/ld-button/ld-button.module
     CommonModule,
     CreateEditRoutingModule,
     LdWrapperModule,
-    LdButtonModule
+    LdButtonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ]
 })
 export class CreateEditModule { }
