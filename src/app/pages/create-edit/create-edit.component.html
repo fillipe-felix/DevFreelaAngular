@@ -8,19 +8,19 @@
       <mat-form-field appearance="legacy">
         <mat-label>Título</mat-label>
         <input matInput formControlName="title">
-        <mat-error *ngIf="isInvalid('title', 'required')">{{msg.requerid}}</mat-error>
+        <mat-error *ngIf="helpers.isInvalid(createEditForm,'title', 'required')">{{msg.requerid}}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="legacy">
         <mat-label>Custo Total</mat-label>
         <input matInput formControlName="totalCost">
-        <mat-error *ngIf="isInvalid('totalCost', 'required')">{{msg.requerid}}</mat-error>
+        <mat-error *ngIf="helpers.isInvalid(createEditForm,'totalCost', 'required')">{{msg.requerid}}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="legacy">
         <mat-label>Descrição</mat-label>
         <textarea matInput formControlName="description"></textarea>
-        <mat-error *ngIf="isInvalid('description', 'required')">{{msg.requerid}}</mat-error>
+        <mat-error *ngIf="helpers.isInvalid(createEditForm,'description', 'required')">{{msg.requerid}}</mat-error>
       </mat-form-field>
 
       <ld-button [text]="actionButtonText"></ld-button>

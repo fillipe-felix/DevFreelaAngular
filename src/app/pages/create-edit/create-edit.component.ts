@@ -4,6 +4,7 @@ import {CreateEditService} from "./services/create-edit.service";
 import {IProject} from "../../shared/interfaces/IProject";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {msg} from "../../shared/Utils/msg";
+import {Helpers} from "../../shared/Utils/helpers";
 
 @Component({
   selector: 'app-create-edit',
@@ -17,6 +18,7 @@ export class CreateEditComponent implements OnInit {
   actionButtonText: string = '';
   title: string = ''
   msg = msg
+  helpers = Helpers
 
   constructor(private router: Router,
               private projectCreateEditService: CreateEditService,
@@ -69,17 +71,15 @@ export class CreateEditComponent implements OnInit {
 
   fillInputs() {
     if (this.screenType === 'edit') {
-      fetch(`https://622cd1e6087e0e041e147214.mockapi.io/api/projects/${this.id}`)
-        .then(response => response.json())
-        .then(project => {
-          //preenche os campos quando clicar em editar
-          this.createEditForm.patchValue({
-            title: project.title,
-            totalCost: project.totalCost,
-            description: project.description
-            }
-          )
-        })
+      this.projectCreateEditService.getProjectById(this.id)
+        .subscribe(
+          (project: IProject) => {
+            this.createEditForm.patchValue({
+              title: project.title,
+              totalCost: project.totalCost,
+              description: project.description
+            })
+          })
     }
   }
 
@@ -94,14 +94,6 @@ export class CreateEditComponent implements OnInit {
     if (this.screenType == 'edit') {
       this.actionButtonText = 'Salvar'
       this.title = 'Editar projeto'
-    }
-  }
-
-  isInvalid(inputName: string, validatorName: string){
-    const formControl: any = this.createEditForm.get(inputName);
-
-    if (formControl.errors !== null){
-      return formControl.errors[validatorName] && formControl.touched
     }
   }
 }

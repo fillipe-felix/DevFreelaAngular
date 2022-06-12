@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {msg} from 'src/app/shared/Utils/msg'
 import {RegisterService} from "./services/register.service";
 import {Router} from "@angular/router";
+import {Helpers} from "../../shared/Utils/helpers";
 
 @Component({
   selector: 'app-register',
@@ -18,6 +19,7 @@ export class RegisterComponent implements OnInit {
               private router: Router) { }
 
   msg = msg;
+  helpers = Helpers
 
   registerForm: FormGroup = this.fb.group({
     role:['', [Validators.required]],
@@ -78,14 +80,6 @@ export class RegisterComponent implements OnInit {
         );
     }else{
       this.registerForm.markAllAsTouched();
-    }
-  }
-
-  isInvalid(inputName: string, validatorName: string){
-    const formControl: any = this.registerForm.get(inputName);
-
-    if (formControl.errors !== null){
-      return formControl.errors[validatorName] && formControl.touched
     }
   }
 }

@@ -17,4 +17,8 @@ export class CreateEditService {
   putProject(project: IProject, id: string){
     return this.http.put<IProject>(`${environment.apiUrl}/projects/${id}`, project)
   }
+
+  getProjectById(id: string){
+    return this.http.get<IProject>(`${environment.apiUrl}/projects/${id}`)
+  }
 }
