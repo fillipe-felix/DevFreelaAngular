@@ -12,7 +12,8 @@ export class CreateEditComponent implements OnInit {
 
   id:string;
   screenType: 'create' | 'edit';
-  typeButton: string = 'Cadastrar';
+  actionButtonText: string = '';
+  title: string = ''
 
   constructor(private router: Router, private projectCreateEditService: CreateEditService) {
     this.id = history.state.id
@@ -71,15 +72,14 @@ export class CreateEditComponent implements OnInit {
   setScreenTypeTexts() {
     // MODO CRIAR
     if (this.screenType == 'create') {
-      (document.querySelector('#main-title') as any).innerText = "Vamos cadastrar seu novo projeto!";
-      //(document.querySelector('#action-button') as any).innerText = "Cadastrar";
+      this.actionButtonText = 'Cadastrar'
+      this.title = 'Vamos cadastrar seu novo projeto!'
     }
 
     // MODO EDITAR
     if (this.screenType == 'edit') {
-      (document.querySelector('#main-title') as any).innerText = "Editar projeto";
-      //(document.querySelector('#action-button') as any).innerText = "Salvar";
-      this.typeButton = 'Salvar'
+      this.actionButtonText = 'Salvar'
+      this.title = 'Editar projeto'
     }
   }
 }

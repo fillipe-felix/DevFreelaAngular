@@ -1,15 +1,15 @@
 <div class="ld-project-create-edit">
   <ld-wrapper back="list">
 
-    <form class="left" (submit)="createOrEdit()" action="javascript:void(0)">
+    <form class="left" onsubmit="createOrEdit()" action="javascript:void(0)">
 
-      <h1 class="main-title" id="main-title"></h1>
+      <h1 class="main-title">{{title}}</h1>
 
       <input required id="title" class="ld-input" placeholder="Título">
       <input required id="totalCost" class="ld-input" placeholder="Custo Total">
       <textarea required id="description" class="ld-input" placeholder="Descrição"></textarea>
 
-      <ld-button text="{{typeButton}}"></ld-button>
+      <ld-button [text]="actionButtonText" (click)="createOrEdit()"></ld-button>
     </form>
     <div class="right">
       <img class="image" alt="Fundo de decoração com 3 cubos com fundo gradient das cores do arco-iris"
